@@ -1,0 +1,397 @@
+@charset "utf-8";
+
+/* Height and width calculations */
+
+@cardwidth: 80px;
+@cardheight: 100px;
+@cardmargin: 10px;
+@gamewidth: (@cardwidth + @cardmargin) * 4;
+@gameheight: (@cardheight + @cardmargin) * 4;
+
+@asidewidth: 200px;
+@totalwidth: @gamewidth + @asidewidth;
+
+@logoheight: 80px;
+@actionsheight: 60px;
+@infoheight: @gameheight - @logoheight - @actionsheight - @cardmargin;
+
+/* Colours */
+
+@orange: ...;
+@yellow: #fee300;
+@green: #4ae830;
+@purple: #dc22a5;
+@red: #c00;
+
+@white: #fff;
+@black: #000;
+
+
+/****************************
+STYLE DEFINITIONS
+****************************/
+
+/* General sytles & basic browser resets */
+
+body {
+	margin:0;
+	padding:0;
+	width:100%;
+	height:100%;
+	font-size:14px;
+	background:url(../img/background.jpg) top center no-repeat #FC3;
+}
+
+body,
+input,
+select,
+button,
+textarea {
+	font-size:100%;
+	font-family:Comfortaa, Verdana, Geneva, sans-serif;
+}
+
+button {
+	cursor:pointer;
+	padding:14px;
+	border:0 none;
+	background:none @purple;
+	color:@white;
+	float:left;
+	margin:0 10px 0 0;
+	
+	&:hover, &:focus {
+		background:none darken(@purple, 10%);
+	}
+}
+
+
+h1, h2, h3,
+.actiontext {
+	font-family:"Fredoka One";
+}
+
+h3 {
+	font-family:100%;
+	margin:0;
+	padding:0;
+}
+
+.sec {
+	font-family:Audiowide;
+}
+
+
+/* No JS warning */
+
+body.no-js {
+	margin:50px 0 0 0;
+	position:relative;
+	
+	&:before {
+		position:fixed;
+		background:none @red;
+		color:@white;
+		width:100%;
+		height:50px;
+		line-height:50px;
+		content:'Your browser does not run Javascript! This is needed to play the game!';
+		top:0;
+		left:0;
+		z-index:9000;
+		text-align:center;
+	}
+}
+
+
+/* Main wrapper elements */
+
+#wrap-all {
+	width:560px;
+	margin:40px 0 0 -280px;
+	padding:0 0 0 50%;
+	float:left;
+}
+
+#wrap-gameboard {
+	width:@gamewidth;
+	height:@gameheight;
+	float:left;
+	position:relative;
+}
+
+#wrap-sideboard {
+	width:@asidewidth;
+	height:@gameheight;
+	float:left;
+	position:relative;
+	
+	& .logo {
+		height:@logoheight;
+		width:100%;
+		float:left;
+	}
+
+	& .info {
+		height:@infoheight;
+		width:100%;
+		float:left;
+	}
+	
+	& .actions {
+		height:@actionsheight;
+		width:100%;
+		float:left;
+	}
+}
+
+
+/* Card field list */
+
+.wrap-fields {
+	width:100%;
+	float:left;
+
+	& ul.fields,
+	& ul.fields li {
+		margin:0;
+		padding:0;
+		float:left;
+		list-style:none;
+	}
+
+	& ul.fields {
+		width:100%;
+	
+		& li.field {
+			width:@cardwidth;
+			height:@cardheight;
+			position:relative;
+			margin:0 @cardmargin @cardmargin 0;
+			opacity:0.6;
+			cursor:pointer;
+			
+			&:hover, &.hover, &.selected, &.found {
+				opacity:1;
+			}
+			
+			/* Here happens the magic! CSS transitions do the flip over animation! :) */
+			
+			& .back {
+				position: absolute;
+				top: 0;
+				z-index: 900;
+				width: inherit;
+				height: inherit;
+				text-align: center;
+				-webkit-transform: rotateX(0deg) rotateY(0deg);
+				-webkit-transform-style: preserve-3d;
+				-webkit-backface-visibility: hidden;
+				-moz-transform: rotateX(0deg) rotateY(0deg);
+				-moz-transform-style: preserve-3d;
+				-moz-backface-visibility: hidden;
+				-o-transition: all .4s ease-in-out;
+				-ms-transition: all .4s ease-in-out;
+				-moz-transition: all .4s ease-in-out;
+				-webkit-transition: all .4s ease-in-out;
+				transition: all .4s ease-in-out;
+			}
+			
+			&.flip .back {
+				z-index: 900;
+				-webkit-transform: rotateY(180deg);
+				-moz-transform: rotateY(180deg);
+			}
+			
+			& .front {
+				position: absolute;
+				top: 0;
+				z-index: 800;
+				width: inherit;
+				height: inherit;
+				-webkit-transform: rotateY(-180deg);
+				-webkit-transform-style: preserve-3d;
+				-webkit-backface-visibility: hidden;
+				-moz-transform: rotateY(-180deg);
+				-moz-transform-style: preserve-3d;
+				-moz-backface-visibility: hidden;
+				-o-transition: all .4s ease-in-out;
+				-ms-transition: all .4s ease-in-out;
+				-moz-transition: all .4s ease-in-out;
+				-webkit-transition: all .4s ease-in-out;
+				transition: all .4s ease-in-out;
+			}
+		
+			&.flip .front {
+				z-index: 1000;
+				-webkit-transform: rotateX(0deg) rotateY(0deg);
+				-moz-transform: rotateX(0deg) rotateY(0deg);
+			}
+		}
+	}
+}
+
+/* Widgets */
+
+.widget {
+	box-sizing:border-box;
+	width:100%;
+	margin:@cardmargin 0 0 0;
+	padding:@cardmargin;
+	float:left;
+	text-align:center;
+
+	& .sectext {
+		display:none;
+	}
+}
+
+
+/* Highscores */
+
+.highscore ul.scores,
+.highscore ul.scores li {
+	width:100%;
+	margin:0;
+	padding:0;
+	float:left;
+	list-style:none;
+}
+
+.highscore ul.scores li {
+	margin:4px 0 0 0;
+	
+	&.noscore {
+		width:100%;
+		text-align:center;
+	}
+	
+	& .name {
+		float:left;
+	}
+	
+	& .sec {
+		float:right;
+	}
+}
+
+
+/* Action buttons */
+
+.actions button {
+	height:60px;
+	line-height:60px;
+	border:0 none;
+	padding:0;
+}
+
+.rules button {
+	width:@actionsheight;
+	background:none @yellow;
+	&:hover, &:focus {
+		background:none darken(@yellow, 10%);
+	}
+}
+
+.restart button {
+	width:@asidewidth - @cardmargin - @actionsheight;
+	margin:0;
+	background:none @green;
+	&:hover, &:focus {
+		background:none darken(@green, 10%);
+	}
+}
+
+
+/* Popups */
+
+.popup {
+	position:fixed;
+	width:@totalwidth;
+	top:100px;
+	left:50%;
+	z-index:3000;
+	margin:0 0 0 -280px;
+	padding:40px;
+	box-sizing:border-box;
+	background:none #fff;
+	display:none;
+	overflow:auto;
+
+	& button.cancel {
+		background:none @red;
+		&:hover, &:focus {
+			background:none darken(@red, 10%);
+		}
+	}
+	
+	& input {
+		width:100%;
+		box-sizing:border-box;
+		padding:10px;
+	}
+}
+
+#popup-background {
+	position:fixed;
+	width:100%;
+	height:100%;
+	background:none #000;
+	opacity:0.3;
+	display:none;
+	top:0;
+	left:0;
+	z-index:2000;
+}
+
+
+/* Action text */
+
+.actiontext {
+	height:440px;
+	width:100%;
+	line-height:440px;
+	text-align:center;
+	position:absolute;
+	z-index:1000;
+	top:0;
+	left:0;
+	display:none;
+}
+
+
+/* Footer */
+
+#footer {
+	font-size:70%;
+	opacity:0.4;
+	width:100%;
+	float:left;
+	margin:40px 0 0 0;
+	text-align:center;
+	color:#000;
+
+	&:hover {
+		opacity:1;
+	}
+	
+	& p {
+		margin:5px 20px;
+		padding:0;
+	}
+	
+	& span.icon {
+		margin:0 2px 0 10px;
+		cursor:default;
+	}
+	
+	& a {
+		color:#000;
+		font-weight:900;
+		text-decoration:none;
+	
+		&:hover {
+			text-decoration:underline;
+		}
+	}
+}
