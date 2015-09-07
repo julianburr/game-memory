@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta charset="utf-8">
+	<title>Colour Memory | By Julian Burr</title>
+    
+    <link href='http://fonts.googleapis.com/css?family=Fredoka+One|Comfortaa:400,300,700|Audiowide' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="icomoon/style.css">
+    
+    <link rel="stylesheet/less" type="text/css" href="css/main.less">
+    <link rel="stylesheet/less" type="text/css" href="css/mobile.less" media="only screen and (max-width:600px)" />
+    
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/less.js"></script>
+    <script type="text/javascript" src="js/nojs.js"></script>
+    
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript">
+		$(document).ready(function(){
+			// Init game
+			$("#wrap-game").colourMemory();
+		});
+	</script>
+</head>
+
+<body class="no-js">
+
+<div id="wrap-all">
+
+	<div id="wrap-game">
+    
+    	<main id="wrap-gameboard">
+        	<div class="wrap-fields">
+            	<ul class="fields"></ul>
+            </div>
+            <div class="actiontext"></div>
+        </main>
+        
+        <aside id="wrap-sideboard">
+        	<div class="logo">
+            	<img src="img/logo.png" alt="Colour Memory">
+            </div>
+            <div class="info">
+            	<div class="widget timer">
+                	<h3>Your score</h3>
+                	<div class="time">
+                    	<span class="sec">0</span> <span class="sectext">seconds</span>
+                    </div>
+                </div>
+                <div class="widget highscore">
+                	<h3>Highscores</h3>
+                	<ul class="scores">
+                    	<li class="noscore">No scores found!</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="rules">
+                    <button title="Rules"><span class="icon icon-book-alt"></span></button>
+                </div>
+                <div class="restart">
+                    <button title="Restart the game"><span class="icon icon-reload"></span> Restart</button>
+                </div>
+            </div>
+        </aside>
+    
+    </div>
+    
+	<div id="popup-rules" class="popup">
+    	<h2>Rules</h2>
+        <p>The board consists of 16 cards laid out face down. The cards are devided into 8 pairs of the same colour. Goal of the game is to find the matching pairs as quick as possible.</p>
+        <h2>Navigation</h2>
+        <p>To flip over a card, you can simple click on it. Alternatively you can use the arrow keys to select the desired card and enter to flip it over.</p>
+        <p><button>Got it</button></p>
+    </div>
+    
+    <div id="popup-highscore" class="popup">
+    	<form name="highscore" action="/ajax/save_highscore.php" method="post">
+        	<input type="hidden" name="score" value="">
+            <input type="hidden" name="date" value="">
+            
+            <h2>Submit your score</h2>
+            <p>Congratulations! You solved the memory puzzle. Your score was</p>
+            <p><b class="score"></b></p>
+            <p>To submit your score please enter your name and email address and press the send button.</p>
+            <p><input type="text" name="name" value="" placeholder="Enter your name here"></p>
+             <p><input type="text" name="email" value="" placeholder="And your email address (optional)"></p>
+            <p><button class="send">Send</button> <button class="cancel"><span class="icon icon-cancel"></span> No, thanks</button></p>
+        </form>
+    </div>
+
+</div>
+
+<div id="wrap-footer">
+    <footer id="footer">
+    	<p>Successfully tested in 
+        	<span class="icon icon-firefox" title="Firefox 39.0"></span>
+            <span class="icon icon-chrome" title="Google Chrome 43.0"></span>
+            <span class="icon icon-safari" title="Safari 5.1"></span>
+            <span class="icon icon-IE" title="Internet Explorer 10.0"></span>
+        </p>
+        <p>
+        	<span class="icon icon-html5"></span> Code & Design by <a target="_blank" href="http://portfolio.julianburr.de/en/">Julian Burr</a>
+        	<span class="icon icon-linkedin"></span> <a target="_blank" href="https://linkedin.com/in/julianburr">Find out more about me on LinkedIn</a>
+            <span class="icon icon-github"></span> <a target="_blank" href="https://github.com/julianburr">Or see some of my works on Github</a>
+        </p>
+    </footer>
+</div>
+
+<div id="popup-background"></div>
+
+</body>
+</html>
